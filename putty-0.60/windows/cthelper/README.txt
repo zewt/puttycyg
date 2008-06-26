@@ -7,7 +7,7 @@ PuTTYcyg is a patched version of PuTTY that, in addition to telnet,
 rlogin, ssh, and serial connections, can also be used as a local Cygwin
 terminal instead of the Windows console or xterm.  See RATIONALE section.
 
-PuTTYcyg is available here: http://web.gccaz.edu/~medgar/puttycyg/
+PuTTYcyg is available here: http://code.google.com/p/puttycyg/
 
 
 REQUIREMENTS
@@ -20,7 +20,12 @@ INSTALLATION
 
 No installation is necessary.  When run with the cygterm backend, PuTTYcyg
 requires cthelper.exe to be in the same directory as the PuTTYcyg executable
-or in the PATH.
+or in the PATH.  Since version 20070207, there are four files in the binary
+release zip file:
+  README.txt    - this file
+  putty.exe     - PuTTY with cygterm, Telnet, and SSH clients
+  puttytel.exe  - PuTTY with cygterm and Telnet clients (no SSH)
+  cthelper.exe  - pty helper program; required when using the cygterm backend
 
 
 USAGE
