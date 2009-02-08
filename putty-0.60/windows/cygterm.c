@@ -122,6 +122,8 @@ cygterm_accepting(Plug plug, OSSocket sock)
 }
 
 
+static char *getCygwinBin(void);
+static void appendPath(const char *append);
 static size_t makeAttributes(char *buf, Config *cfg);
 static const char *spawnChild(char *cmd, LPPROCESS_INFORMATION ppi, PHANDLE pin);
 
@@ -204,6 +206,20 @@ cygterm_init(void *frontend_handle, void **backend_handle,
 	}
 	else {
 		cmdlinelen += sprintf(cmdline + cmdlinelen, " %s", command);
+	}
+
+	/* Add the Cygwin /bin path to the PATH. */
+	if (cfg->cygautopath) {
+		char *cygwinBinPath = getCygwinBin();
+		if (!cygwinBinPath) {
+			/* we'll try anyway */
+			cygterm_debug("cygwin bin directory not found");
+		}
+		else {
+			cygterm_debug("found cygwin directory: %s", cygwinBinPath);
+			appendPath(cygwinBinPath);
+			sfree(cygwinBinPath);
+		}
 	}
 
 	cygterm_debug("starting cthelper: %s", cmdline);
@@ -431,6 +447,12 @@ getRegistry(char *valueData, LPDWORD psize, HKEY key, const char *subKey, const 
 	return ret;
 }
 
+/* As of Cygwin 1.7, this key contains the Cygwin install root. */
+#define CYGWIN_SETUP_ROOTDIR \
+    HKEY_LOCAL_MACHINE,\
+	"Software\\Cygwin\\setup",\
+	"rootdir"
+/* Versions previous to Cygwin 1.7 use one of these keys. */
 #define CYGWIN_SYS_ROOT_MOUNT \
 	HKEY_LOCAL_MACHINE,\
 	"Software\\Cygnus Solutions\\Cygwin\\mounts v2\\/",\
@@ -449,7 +471,8 @@ getCygwinBin(void)
 	dir = smalloc(size);
 	dir[0] = '\0';
 
-	if (ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_SYS_ROOT_MOUNT)
+	if (ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_SETUP_ROOTDIR)
+	    || ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_SYS_ROOT_MOUNT)
 	    || ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_USER_ROOT_MOUNT))
 	{
 		strcat(dir, "\\bin");
@@ -501,20 +524,6 @@ spawnChild(char *cmd, LPPROCESS_INFORMATION ppi, PHANDLE pin)
 	si.dwFlags = STARTF_USESTDHANDLES|STARTF_USESHOWWINDOW;
 	si.hStdInput = in;
 	si.wShowWindow = SW_HIDE;
-
-	/* Add the Cygwin /bin path to the PATH env var. */
-    if (!getenv("NOCYGWIN")) {
-        char *cygwinBinPath = getCygwinBin();
-        if (!cygwinBinPath) {
-            /* we'll try anyway */
-            cygterm_debug("cygwin bin directory not found");
-        }
-        else {
-            cygterm_debug("found cygwin directory: %s", cygwinBinPath);
-            appendPath(cygwinBinPath);
-            sfree(cygwinBinPath);
-        }
-    }
 
 	/* We allow cthelper to inherit handles.  I have no idea if there are
 	 * other inheritable handles in PuTTY that this will effect.  cthelper

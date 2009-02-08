@@ -21,7 +21,9 @@ DBUG_DEFINES = -DDBUG_OFF
 endif
 
 ## SFU (INTERIX) needs these also
+ifdef INTERIX
 APUE_OBJ = ptyfork.o ptyopen.o error.o
+endif
 
 SRC = cthelper.c buffer.c buffer.h dump.c debug.h
 OBJ = cthelper.o buffer.o message.o $(APUE_OBJ) $(DBUG_OBJ)

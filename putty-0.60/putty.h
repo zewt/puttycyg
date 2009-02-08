@@ -481,6 +481,7 @@ struct config_tag {
     int serparity;
     int serflow;
     /* Cygterm options */
+    int cygautopath;
     char cygcmd[512];
     /* Keyboard options */
     int bksp_is_delete;
