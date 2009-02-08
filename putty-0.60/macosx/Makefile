@@ -256,6 +256,18 @@ cproxy.o: ../cproxy.c ../putty.h ../ssh.h ../network.h ../proxy.h \
 		../unix/unix.h ../tree234.h ../windows/winhelp.h \
 		../charset/charset.h
 	$(CC) $(COMPAT) $(FWHACK) $(CFLAGS) $(XFLAGS) -c $<
+cygcfg.o: ../windows/cygcfg.c ../putty.h ../dialog.h ../puttyps.h \
+		../network.h ../misc.h ../windows/winstuff.h \
+		../mac/macstuff.h ../macosx/osx.h ../unix/unix.h \
+		../puttymem.h ../tree234.h ../windows/winhelp.h \
+		../charset/charset.h
+	$(CC) $(COMPAT) $(FWHACK) $(CFLAGS) $(XFLAGS) -c $<
+cygterm.o: ../windows/cygterm.c ../putty.h ../windows/cthelper/cthelper.h \
+		../windows/cthelper/message.h ../puttyps.h ../network.h \
+		../misc.h ../windows/winstuff.h ../mac/macstuff.h \
+		../macosx/osx.h ../unix/unix.h ../puttymem.h ../tree234.h \
+		../windows/winhelp.h ../charset/charset.h
+	$(CC) $(COMPAT) $(FWHACK) $(CFLAGS) $(XFLAGS) -c $<
 dialog.o: ../dialog.c ../putty.h ../dialog.h ../puttyps.h ../network.h \
 		../misc.h ../windows/winstuff.h ../mac/macstuff.h \
 		../macosx/osx.h ../unix/unix.h ../puttymem.h ../tree234.h \

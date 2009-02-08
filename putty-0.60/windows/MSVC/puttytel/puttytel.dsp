@@ -182,6 +182,14 @@ SOURCE=..\..\..\wcwidth.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\windows\cygcfg.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\windows\cygterm.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\windows\sizetip.c
 # End Source File
 # Begin Source File
@@ -319,6 +327,14 @@ SOURCE=..\..\..\tree234.h
 # Begin Source File
 
 SOURCE=..\..\..\unix\unix.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\windows\cthelper\cthelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\windows\cthelper\message.h
 # End Source File
 # Begin Source File
 

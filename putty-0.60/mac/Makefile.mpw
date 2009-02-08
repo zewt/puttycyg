@@ -648,6 +648,19 @@ cproxy.68k.o Ä ::cproxy.c ::putty.h ::ssh.h ::network.h ::proxy.h ¶
 		::charset:charset.h
 	{C_68K} ::cproxy.c -o {Targ} {COptions_68K}
 
+cygcfg.68k.o Ä ::windows:cygcfg.c ::putty.h ::dialog.h ::puttyps.h ¶
+		::network.h ::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	{C_68K} ::windows:cygcfg.c -o {Targ} {COptions_68K}
+
+cygterm.68k.o Ä ::windows:cygterm.c ::putty.h ::windows:cthelper:cthelper.h ¶
+		::windows:cthelper:message.h ::puttyps.h ::network.h ¶
+		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	{C_68K} ::windows:cygterm.c -o {Targ} {COptions_68K}
+
 dialog.68k.o Ä ::dialog.c ::putty.h ::dialog.h ::puttyps.h ::network.h ¶
 		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
 		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
@@ -1442,6 +1455,19 @@ cproxy.cfm68k.o Ä ::cproxy.c ::putty.h ::ssh.h ::network.h ::proxy.h ¶
 		::unix:unix.h ::tree234.h ::windows:winhelp.h ¶
 		::charset:charset.h
 	{C_CFM68K} ::cproxy.c -o {Targ} {COptions_CFM68K}
+
+cygcfg.cfm68k.o Ä ::windows:cygcfg.c ::putty.h ::dialog.h ::puttyps.h ¶
+		::network.h ::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	{C_CFM68K} ::windows:cygcfg.c -o {Targ} {COptions_CFM68K}
+
+cygterm.cfm68k.o Ä ::windows:cygterm.c ::putty.h ¶
+		::windows:cthelper:cthelper.h ::windows:cthelper:message.h ¶
+		::puttyps.h ::network.h ::misc.h ::windows:winstuff.h ¶
+		::mac:macstuff.h ::macosx:osx.h ::unix:unix.h ::puttymem.h ¶
+		::tree234.h ::windows:winhelp.h ::charset:charset.h
+	{C_CFM68K} ::windows:cygterm.c -o {Targ} {COptions_CFM68K}
 
 dialog.cfm68k.o Ä ::dialog.c ::putty.h ::dialog.h ::puttyps.h ::network.h ¶
 		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
@@ -2264,6 +2290,23 @@ cproxy.ppc.o Ä ::cproxy.c ::putty.h ::ssh.h ::network.h ::proxy.h ¶
 	echo -n > {Targ}
 	setfile -t XCOF {Targ}
 	{C_PPC} ::cproxy.c -o {Targ} {COptions_PPC}
+
+cygcfg.ppc.o Ä ::windows:cygcfg.c ::putty.h ::dialog.h ::puttyps.h ¶
+		::network.h ::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	echo -n > {Targ}
+	setfile -t XCOF {Targ}
+	{C_PPC} ::windows:cygcfg.c -o {Targ} {COptions_PPC}
+
+cygterm.ppc.o Ä ::windows:cygterm.c ::putty.h ::windows:cthelper:cthelper.h ¶
+		::windows:cthelper:message.h ::puttyps.h ::network.h ¶
+		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	echo -n > {Targ}
+	setfile -t XCOF {Targ}
+	{C_PPC} ::windows:cygterm.c -o {Targ} {COptions_PPC}
 
 dialog.ppc.o Ä ::dialog.c ::putty.h ::dialog.h ::puttyps.h ::network.h ¶
 		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
@@ -3351,6 +3394,23 @@ cproxy.carbon.o Ä ::cproxy.c ::putty.h ::ssh.h ::network.h ::proxy.h ¶
 	echo -n > {Targ}
 	setfile -t XCOF {Targ}
 	{C_Carbon} ::cproxy.c -o {Targ} {COptions_Carbon}
+
+cygcfg.carbon.o Ä ::windows:cygcfg.c ::putty.h ::dialog.h ::puttyps.h ¶
+		::network.h ::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
+		::macosx:osx.h ::unix:unix.h ::puttymem.h ::tree234.h ¶
+		::windows:winhelp.h ::charset:charset.h
+	echo -n > {Targ}
+	setfile -t XCOF {Targ}
+	{C_Carbon} ::windows:cygcfg.c -o {Targ} {COptions_Carbon}
+
+cygterm.carbon.o Ä ::windows:cygterm.c ::putty.h ¶
+		::windows:cthelper:cthelper.h ::windows:cthelper:message.h ¶
+		::puttyps.h ::network.h ::misc.h ::windows:winstuff.h ¶
+		::mac:macstuff.h ::macosx:osx.h ::unix:unix.h ::puttymem.h ¶
+		::tree234.h ::windows:winhelp.h ::charset:charset.h
+	echo -n > {Targ}
+	setfile -t XCOF {Targ}
+	{C_Carbon} ::windows:cygterm.c -o {Targ} {COptions_Carbon}
 
 dialog.carbon.o Ä ::dialog.c ::putty.h ::dialog.h ::puttyps.h ::network.h ¶
 		::misc.h ::windows:winstuff.h ::mac:macstuff.h ¶
