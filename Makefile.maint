@@ -5,7 +5,7 @@ PUTTY_VERSION= 0.60
 upstream= ../putty-$(PUTTY_VERSION)-orig/
 
 # The version of PuTTYcyg we are building
-PUTTYCYG_VERSION= 20090508
+PUTTYCYG_VERSION= 20090511
 src= putty-$(PUTTY_VERSION)/
 
 q= @echo $@;
