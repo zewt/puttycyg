@@ -131,8 +131,8 @@ windows/window.c
   read command instead of hostname from command line when -cygterm selected
   add "-" command line option
   add alternate key sequences:
-	Ctrl-Backspace, Shift-Tab, Ctrl-Shift-Space,
-	Ctrl-slash, Shift-Return, Ctrl-Return
+    Ctrl-Backspace, Shift-Tab, Ctrl-Shift-Space,
+    Ctrl-slash, Shift-Return, Ctrl-Return
   alt_metabit support
 windows/winnet.c
   sk_getport()

@@ -6,8 +6,8 @@
 
 typedef struct buffer_tag *Buffer;
 struct buffer_tag {
-	size_t avail, len;
-	unsigned char data[1];
+  size_t avail, len;
+  unsigned char data[1];
 };
 
 /* Initialize a Buffer */
@@ -18,8 +18,8 @@ void buffer_free(Buffer *pb);
 
 /* Initialize a Buffer with alloca() */
 #define BUFFER_ALLOCA(b,s) do{\
-	b = alloca(sizeof(b)+(s)); b->avail = s; b->len = 0;\
-	}while(0)
+    b = alloca(sizeof(b)+(s)); b->avail = s; b->len = 0;\
+  }while(0)
 
 /* Returns true if buffer is full */
 #define buffer_isfull(b) ((b)->avail == 0)

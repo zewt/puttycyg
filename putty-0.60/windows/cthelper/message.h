@@ -12,13 +12,13 @@ typedef unsigned short uint16_t;
 
 typedef struct message_tag Message;
 struct message_tag {
-	uint8_t size;
-	uint8_t type;
-	union {
-		struct {
-			uint16_t width, height;
-		} resize;
-	} msg;
+  uint8_t size;
+  uint8_t type;
+  union {
+    struct {
+      uint16_t width, height;
+    } resize;
+  } msg;
 };
 
 /* message types */

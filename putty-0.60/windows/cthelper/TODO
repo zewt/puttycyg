@@ -14,7 +14,7 @@ Flow control stop (^S) should be more instantaneous
 
 hide the Port editbox
 
-allow setting a default command of "-" or allow empty command to launch the user's shell
+[done] allow setting a default command of "-" or allow empty command to launch the user's shell
 
 * PuTTY (not related to cygterm backend)
 
