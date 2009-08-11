@@ -5,7 +5,7 @@ PUTTY_VERSION= 0.60
 upstream= ../putty-$(PUTTY_VERSION)-orig/
 
 # The version of PuTTYcyg we are building
-PUTTYCYG_VERSION= 20090511
+PUTTYCYG_VERSION= 20090811
 src= putty-$(PUTTY_VERSION)/
 
 q= @echo $@;
@@ -21,7 +21,7 @@ dist: \
 putty-$(PUTTY_VERSION)-cygterm-$(PUTTYCYG_VERSION).patch.gz: patch
 	$(q) gzip -c $< >$@
 
-patch: Makefile $(src) $(src)windows $(src)windows/cthelper
+patch: Makefile.maint $(src) $(src)windows $(src)windows/cthelper
 	$(q) { \
 	  printf '#!/bin/sh\nbuild() {\nPUTTY_VERSION=%s\n' $(PUTTY_VERSION); \
 	  <$(src)windows/cthelper/BUILDING \
@@ -29,10 +29,10 @@ patch: Makefile $(src) $(src)windows $(src)windows/cthelper
 	      -e 's/^## \(.*\)/echo "*** \1"/' \
 	      -e '/^#/d' \
 	      -e '/^$$/d'; \
-	  printf '}\nbuild <<"eof"; exit\n'; \
+	  printf '}\nbuild <<".eof"\n'; \
 	  <$(src)manifest.puttycyg \
 	    awk '{sub("./","",$$2);print$$2}END{print"manifest.puttycyg"}' \
-	    | xargs -i diff -Nur $(upstream){} $(src){}; \
+	    | xargs -i diff -Naur $(upstream){} $(src){}; \
 	} >$@; true
 
 DISTFILES= README.txt putty.exe puttytel.exe cthelper.exe
