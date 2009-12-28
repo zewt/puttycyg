@@ -456,20 +456,15 @@ getRegistry(char *valueData, LPDWORD psize, HKEY key, const char *subKey, const 
 	return ret;
 }
 
-/* As of Cygwin 1.7, this key contains the Cygwin install root. */
-#define CYGWIN_SETUP_ROOTDIR \
+/* As of Cygwin 1.7, one of these keys contains the Cygwin install root. */
+#define CYGWIN_U_SETUP_ROOTDIR \
+	HKEY_CURRENT_USER,\
+	"Software\\Cygwin\\setup",\
+	"rootdir"
+#define CYGWIN_S_SETUP_ROOTDIR \
 	HKEY_LOCAL_MACHINE,\
 	"Software\\Cygwin\\setup",\
 	"rootdir"
-/* Versions previous to Cygwin 1.7 use one of these keys. */
-#define CYGWIN_SYS_ROOT_MOUNT \
-	HKEY_LOCAL_MACHINE,\
-	"Software\\Cygnus Solutions\\Cygwin\\mounts v2\\/",\
-	"native"
-#define CYGWIN_USER_ROOT_MOUNT \
-	HKEY_CURRENT_USER,\
-	"Software\\Cygnus Solutions\\Cygwin\\mounts v2\\/",\
-	"native"
 
 static char *
 getCygwinBin(void)
@@ -480,9 +475,8 @@ getCygwinBin(void)
 	dir = smalloc(size);
 	dir[0] = '\0';
 
-	if (ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_SETUP_ROOTDIR)
-	    || ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_SYS_ROOT_MOUNT)
-	    || ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_USER_ROOT_MOUNT))
+	if (ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_U_SETUP_ROOTDIR)
+	    || ERROR_SUCCESS == getRegistry(dir, &size, CYGWIN_S_SETUP_ROOTDIR))
 	{
 		strcat(dir, "\\bin");
 	}
