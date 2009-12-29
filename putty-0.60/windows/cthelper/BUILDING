@@ -4,7 +4,6 @@ The build process has been tested only under Cygwin, of course.  The patch
 file is executable and runs the following script:
 
 PUTTY_VERSION=0.60
-###BUILD###
 set -e -u -x
 PUTTY=putty-$PUTTY_VERSION
 
@@ -30,5 +29,4 @@ make -C windows -f Makefile.cyg putty.exe
 ## Build cthelper.exe
 make -C windows/cthelper
 
-cd ..
-size $PUTTY/windows/putty.exe $PUTTY/windows/cthelper/cthelper.exe
+size windows/putty.exe windows/cthelper/cthelper.exe

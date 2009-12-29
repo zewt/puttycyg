@@ -18,7 +18,7 @@ e7096b16f9abf51dc5b60691605fba67  ./windows/cthelper/ourhdr.h
 1425e7125c4d2f250be439fb445ab1c0  ./windows/cthelper/ptyfork.h
 4019aa857de7b5168e8783f0d00a7ae2  ./windows/cthelper/ptyopen.c
 080169c40e7bf18b649a048981f7a2d9  ./windows/cygcfg.c
-887c1e9c848511d72ea0a34199975411  ./windows/cygterm.c
+d38570e858b90e3a277dc590a043ef1b  ./windows/cygterm.c
 96d07e7fea2e4a1289785b7065235874  ./windows/puttycyg.ico
 f3505d0ee257cc2be3797a67926a08a1  ./Recipe
 9d9ef373a2b830c9a55fafe7e9f71ef4  ./be_all_s.c
