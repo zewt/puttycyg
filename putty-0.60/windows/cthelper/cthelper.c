@@ -661,7 +661,7 @@ cthelper PORT TERM ATTRS [COMMAND [ARGS]]
         switch (buffer_read(cbuf, c)) {
         case -1:
           DBUG_PRINT("error", ("error reading c: %s", strerror(errno)));
-          if (errno == EINTR) break;
+          if (errno == EINTR || errno == EWOULDBLOCK) break;
           /*FALLTHRU*/
         case 0:
           /* PuTTY closed the message pipe */
@@ -681,7 +681,7 @@ cthelper PORT TERM ATTRS [COMMAND [ARGS]]
         switch (buffer_read(sbuf, s)) {
         case -1:
           DBUG_PRINT("error", ("error reading s: %s", strerror(errno)));
-          if (errno == EINTR) break;
+          if (errno == EINTR || errno == EWOULDBLOCK) break;
           /*FALLTHRU*/
         case 0:
           /* PuTTY closed the socket */
@@ -700,7 +700,7 @@ cthelper PORT TERM ATTRS [COMMAND [ARGS]]
         switch (buffer_read(pbuf, t)) {
         case -1:
           DBUG_PRINT("error", ("error reading t: %s", strerror(errno)));
-          if (errno == EINTR) break;
+          if (errno == EINTR || errno == EWOULDBLOCK) break;
           /*FALLTHRU*/
         case 0:
           /* pty closed */
@@ -721,7 +721,7 @@ cthelper PORT TERM ATTRS [COMMAND [ARGS]]
         switch (buffer_write(sbuf, t)) {
         case -1:
           DBUG_PRINT("error", ("error writing t: %s", strerror(errno)));
-          if (errno == EINTR) break;
+          if (errno == EINTR || errno == EWOULDBLOCK) break;
           /*FALLTHRU*/
         case 0:
           /* pty closed */
@@ -737,7 +737,7 @@ cthelper PORT TERM ATTRS [COMMAND [ARGS]]
         switch (buffer_write(pbuf, s)) {
         case -1:
           DBUG_PRINT("error", ("error writing s: %s", strerror(errno)));
-          if (errno == EINTR) break;
+          if (errno == EINTR || errno == EWOULDBLOCK) break;
           /*FALLTHRU*/
         case 0:
           /* PuTTY closed the socket */
