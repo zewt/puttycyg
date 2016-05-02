@@ -274,25 +274,13 @@ void save_open_settings(void *sesskey, Config *cfg)
     write_setting_i(sesskey, "TCPNoDelay", cfg->tcp_nodelay);
     write_setting_i(sesskey, "TCPKeepalives", cfg->tcp_keepalives);
     write_setting_s(sesskey, "TerminalType", cfg->termtype);
-    write_setting_s(sesskey, "TerminalSpeed", cfg->termspeed);
     wmap(sesskey, "TerminalModes", cfg->ttymodes, lenof(cfg->ttymodes));
 
     /* Address family selection */
     write_setting_i(sesskey, "AddressFamily", cfg->addressfamily);
 
-    /* proxy settings */
-    write_setting_s(sesskey, "ProxyExcludeList", cfg->proxy_exclude_list);
-    write_setting_i(sesskey, "ProxyDNS", (cfg->proxy_dns+2)%3);
-    write_setting_i(sesskey, "ProxyLocalhost", cfg->even_proxy_localhost);
-    write_setting_i(sesskey, "ProxyMethod", cfg->proxy_type);
-    write_setting_s(sesskey, "ProxyHost", cfg->proxy_host);
-    write_setting_i(sesskey, "ProxyPort", cfg->proxy_port);
-    write_setting_s(sesskey, "ProxyUsername", cfg->proxy_username);
-    write_setting_s(sesskey, "ProxyPassword", cfg->proxy_password);
-    write_setting_s(sesskey, "ProxyTelnetCommand", cfg->proxy_telnet_command);
     wmap(sesskey, "Environment", cfg->environmt, lenof(cfg->environmt));
     write_setting_s(sesskey, "UserName", cfg->username);
-    write_setting_s(sesskey, "LocalUserName", cfg->localusername);
     write_setting_i(sesskey, "NoPTY", cfg->nopty);
     write_setting_i(sesskey, "Compression", cfg->compression);
     write_setting_i(sesskey, "TryAgent", cfg->tryagent);
@@ -503,8 +491,6 @@ void load_open_settings(void *sesskey, Config *cfg)
     gppi(sesskey, "TCPKeepalives", 0, &cfg->tcp_keepalives);
     gpps(sesskey, "TerminalType", "xterm", cfg->termtype,
 	 sizeof(cfg->termtype));
-    gpps(sesskey, "TerminalSpeed", "38400,38400", cfg->termspeed,
-	 sizeof(cfg->termspeed));
     {
 	/* This hardcodes a big set of defaults in any new saved
 	 * sessions. Let's hope we don't change our mind. */
@@ -521,44 +507,8 @@ void load_open_settings(void *sesskey, Config *cfg)
 	sfree(def);
     }
 
-    /* proxy settings */
-    gpps(sesskey, "ProxyExcludeList", "", cfg->proxy_exclude_list,
-	 sizeof(cfg->proxy_exclude_list));
-    gppi(sesskey, "ProxyDNS", 1, &i); cfg->proxy_dns = (i+1)%3;
-    gppi(sesskey, "ProxyLocalhost", 0, &cfg->even_proxy_localhost);
-    gppi(sesskey, "ProxyMethod", -1, &cfg->proxy_type);
-    if (cfg->proxy_type == -1) {
-        int i;
-        gppi(sesskey, "ProxyType", 0, &i);
-        if (i == 0)
-            cfg->proxy_type = PROXY_NONE;
-        else if (i == 1)
-            cfg->proxy_type = PROXY_HTTP;
-        else if (i == 3)
-            cfg->proxy_type = PROXY_TELNET;
-        else if (i == 4)
-            cfg->proxy_type = PROXY_CMD;
-        else {
-            gppi(sesskey, "ProxySOCKSVersion", 5, &i);
-            if (i == 5)
-                cfg->proxy_type = PROXY_SOCKS5;
-            else
-                cfg->proxy_type = PROXY_SOCKS4;
-        }
-    }
-    gpps(sesskey, "ProxyHost", "proxy", cfg->proxy_host,
-	 sizeof(cfg->proxy_host));
-    gppi(sesskey, "ProxyPort", 80, &cfg->proxy_port);
-    gpps(sesskey, "ProxyUsername", "", cfg->proxy_username,
-	 sizeof(cfg->proxy_username));
-    gpps(sesskey, "ProxyPassword", "", cfg->proxy_password,
-	 sizeof(cfg->proxy_password));
-    gpps(sesskey, "ProxyTelnetCommand", "connect %host %port\\n",
-	 cfg->proxy_telnet_command, sizeof(cfg->proxy_telnet_command));
     gppmap(sesskey, "Environment", "", cfg->environmt, lenof(cfg->environmt));
     gpps(sesskey, "UserName", "", cfg->username, sizeof(cfg->username));
-    gpps(sesskey, "LocalUserName", "", cfg->localusername,
-	 sizeof(cfg->localusername));
     gppi(sesskey, "NoPTY", 0, &cfg->nopty);
     gppi(sesskey, "Compression", 0, &cfg->compression);
     gppi(sesskey, "TryAgent", 1, &cfg->tryagent);

@@ -40,13 +40,8 @@ static void config_host_handler(union control *ctrl, void *dlg,
      * different places depending on the protocol.
      */
     if (event == EVENT_REFRESH) {
-	if (cfg->protocol == PROT_CYGTERM) {
-	    dlg_label_change(ctrl, dlg, "Command (use - for login shell)");
-	    dlg_editbox_set(ctrl, dlg, cfg->cygcmd);
-	} else {
-	    dlg_label_change(ctrl, dlg, HOST_BOX_TITLE);
-	    dlg_editbox_set(ctrl, dlg, cfg->host);
-	}
+	dlg_label_change(ctrl, dlg, "Command (use - for login shell)");
+	dlg_editbox_set(ctrl, dlg, cfg->cygcmd);
     } else if (event == EVENT_VALCHANGE) {
 	if (cfg->protocol == PROT_CYGTERM)
 	    dlg_editbox_get(ctrl, dlg, cfg->cygcmd, lenof(cfg->cygcmd));
@@ -55,80 +50,9 @@ static void config_host_handler(union control *ctrl, void *dlg,
     }
 }
 
-static void config_port_handler(union control *ctrl, void *dlg,
-				void *data, int event)
-{
-    Config *cfg = (Config *)data;
-    char buf[80];
-
-    /*
-     * This function works just like the standard edit box handler,
-     * only it has to choose the control's label and text from two
-     * different places depending on the protocol.
-     */
-    if (event == EVENT_REFRESH) {
-	if (cfg->protocol == PROT_CYGTERM) {
-	    dlg_label_change(ctrl, dlg, "Port (ignored)");
-	    strcpy(buf, "-");
-	} else {
-	    dlg_label_change(ctrl, dlg, PORT_BOX_TITLE);
-	    sprintf(buf, "%d", cfg->port);
-	}
-	dlg_editbox_set(ctrl, dlg, buf);
-    } else if (event == EVENT_VALCHANGE) {
-	dlg_editbox_get(ctrl, dlg, buf, lenof(buf));
-	if (cfg->protocol == PROT_CYGTERM)
-	    ;
-	else
-	    cfg->port = atoi(buf);
-    }
-}
-
 struct hostport {
-    union control *host, *port;
+    union control *host;
 };
-
-/*
- * We export this function so that platform-specific config
- * routines can use it to conveniently identify the protocol radio
- * buttons in order to add to them.
- */
-void config_protocolbuttons_handler(union control *ctrl, void *dlg,
-				    void *data, int event)
-{
-    int button, defport;
-    Config *cfg = (Config *)data;
-    struct hostport *hp = (struct hostport *)ctrl->radio.context.p;
-
-    /*
-     * This function works just like the standard radio-button
-     * handler, except that it also has to change the setting of
-     * the port box, and refresh both host and port boxes when. We
-     * expect the context parameter to point at a hostport
-     * structure giving the `union control's for both.
-     */
-    if (event == EVENT_REFRESH) {
-	for (button = 0; button < ctrl->radio.nbuttons; button++)
-	    if (cfg->protocol == ctrl->radio.buttondata[button].i)
-		break;
-	/* We expected that `break' to happen, in all circumstances. */
-	assert(button < ctrl->radio.nbuttons);
-	dlg_radiobutton_set(ctrl, dlg, button);
-    } else if (event == EVENT_VALCHANGE) {
-	int oldproto = cfg->protocol;
-	button = dlg_radiobutton_get(ctrl, dlg);
-	assert(button >= 0 && button < ctrl->radio.nbuttons);
-	cfg->protocol = ctrl->radio.buttondata[button].i;
-	if (oldproto != cfg->protocol) {
-	    defport = -1;
-	    if (defport > 0 && cfg->port != defport) {
-		cfg->port = defport;
-	    }
-	}
-	dlg_refresh(hp->host, dlg);
-	dlg_refresh(hp->port, dlg);
-    }
-}
 
 static void loggingbuttons_handler(union control *ctrl, void *dlg,
 				   void *data, int event)
@@ -303,29 +227,6 @@ static void printerbox_handler(union control *ctrl, void *dlg,
 	dlg_editbox_get(ctrl, dlg, cfg->printer, sizeof(cfg->printer));
 	if (!strcmp(cfg->printer, PRINTER_DISABLED_STRING))
 	    *cfg->printer = '\0';
-    }
-}
-
-static void codepage_handler(union control *ctrl, void *dlg,
-			     void *data, int event)
-{
-    Config *cfg = (Config *)data;
-    if (event == EVENT_REFRESH) {
-	int i;
-	const char *cp;
-	dlg_update_start(ctrl, dlg);
-	strcpy(cfg->line_codepage,
-	       cp_name(decode_codepage(cfg->line_codepage)));
-	dlg_listbox_clear(ctrl, dlg);
-	for (i = 0; (cp = cp_enumerate(i)) != NULL; i++)
-	    dlg_listbox_add(ctrl, dlg, cp);
-	dlg_editbox_set(ctrl, dlg, cfg->line_codepage);
-	dlg_update_done(ctrl, dlg);
-    } else if (event == EVENT_VALCHANGE) {
-	dlg_editbox_get(ctrl, dlg, cfg->line_codepage,
-			sizeof(cfg->line_codepage));
-	strcpy(cfg->line_codepage,
-	       cp_name(decode_codepage(cfg->line_codepage)));
     }
 }
 
@@ -973,23 +874,12 @@ void setup_config_box(struct controlbox *b, int midsession,
 
 	s = ctrl_getset(b, "Session", "hostport",
 			"Specify the destination you want to connect to");
-	ctrl_columns(s, 2, 75, 25);
+	ctrl_columns(s, 2, 100, 25);
 	c = ctrl_editbox(s, HOST_BOX_TITLE, 'n', 100,
 			 HELPCTX(session_hostname),
 			 config_host_handler, I(0), I(0));
 	c->generic.column = 0;
 	hp->host = c;
-	c = ctrl_editbox(s, PORT_BOX_TITLE, 'p', 100,
-			 HELPCTX(session_hostname),
-			 config_port_handler, I(0), I(0));
-	c->generic.column = 1;
-	hp->port = c;
-	ctrl_columns(s, 1, 100);
-
-	ctrl_radiobuttons(s, "Connection type:", NO_SHORTCUT, 3,
-			HELPCTX(session_hostname),
-			config_protocolbuttons_handler, P(hp),
-			NULL);
     }
 
     /*
@@ -1361,12 +1251,6 @@ void setup_config_box(struct controlbox *b, int midsession,
     ctrl_settitle(b, "Window/Translation",
 		  "Options controlling character set translation");
 
-    s = ctrl_getset(b, "Window/Translation", "trans",
-		    "Character set translation on received data");
-    ctrl_combobox(s, "Received data assumed to be in which character set:",
-		  'r', 100, HELPCTX(translation_codepage),
-		  codepage_handler, P(NULL), P(NULL));
-
     s = ctrl_getset(b, "Window/Translation", "tweaks", NULL);
     ctrl_checkbox(s, "Treat CJK ambiguous characters as wide", 'w',
 		  HELPCTX(translation_cjk_ambig_wide),
@@ -1535,10 +1419,6 @@ void setup_config_box(struct controlbox *b, int midsession,
 			 HELPCTX(connection_termtype),
 			 dlg_stdeditbox_handler, I(offsetof(Config,termtype)),
 			 I(sizeof(((Config *)0)->termtype)));
-	    ctrl_editbox(s, "Terminal speeds", 's', 50,
-			 HELPCTX(connection_termspeed),
-			 dlg_stdeditbox_handler, I(offsetof(Config,termspeed)),
-			 I(sizeof(((Config *)0)->termspeed)));
 
 	    s = ctrl_getset(b, "Connection/Data", "env",
 			    "Environment variables");
@@ -1571,89 +1451,6 @@ void setup_config_box(struct controlbox *b, int midsession,
 	    ed->listbox->listbox.percentages[0] = 30;
 	    ed->listbox->listbox.percentages[1] = 70;
 	}
-
-    }
-
-    if (!midsession) {
-	/*
-	 * The Connection/Proxy panel.
-	 */
-	ctrl_settitle(b, "Connection/Proxy",
-		      "Options controlling proxy usage");
-
-	s = ctrl_getset(b, "Connection/Proxy", "basics", NULL);
-	ctrl_radiobuttons(s, "Proxy type:", 't', 3,
-			  HELPCTX(proxy_type),
-			  dlg_stdradiobutton_handler,
-			  I(offsetof(Config, proxy_type)),
-			  "None", I(PROXY_NONE),
-			  "SOCKS 4", I(PROXY_SOCKS4),
-			  "SOCKS 5", I(PROXY_SOCKS5),
-			  "HTTP", I(PROXY_HTTP),
-			  "Telnet", I(PROXY_TELNET),
-			  NULL);
-	ctrl_columns(s, 2, 80, 20);
-	c = ctrl_editbox(s, "Proxy hostname", 'y', 100,
-			 HELPCTX(proxy_main),
-			 dlg_stdeditbox_handler,
-			 I(offsetof(Config,proxy_host)),
-			 I(sizeof(((Config *)0)->proxy_host)));
-	c->generic.column = 0;
-	c = ctrl_editbox(s, "Port", 'p', 100,
-			 HELPCTX(proxy_main),
-			 dlg_stdeditbox_handler,
-			 I(offsetof(Config,proxy_port)),
-			 I(-1));
-	c->generic.column = 1;
-	ctrl_columns(s, 1, 100);
-	ctrl_editbox(s, "Exclude Hosts/IPs", 'e', 100,
-		     HELPCTX(proxy_exclude),
-		     dlg_stdeditbox_handler,
-		     I(offsetof(Config,proxy_exclude_list)),
-		     I(sizeof(((Config *)0)->proxy_exclude_list)));
-	ctrl_checkbox(s, "Consider proxying local host connections", 'x',
-		      HELPCTX(proxy_exclude),
-		      dlg_stdcheckbox_handler,
-		      I(offsetof(Config,even_proxy_localhost)));
-	ctrl_radiobuttons(s, "Do DNS name lookup at proxy end:", 'd', 3,
-			  HELPCTX(proxy_dns),
-			  dlg_stdradiobutton_handler,
-			  I(offsetof(Config, proxy_dns)),
-			  "No", I(FORCE_OFF),
-			  "Auto", I(AUTO),
-			  "Yes", I(FORCE_ON), NULL);
-	ctrl_editbox(s, "Username", 'u', 60,
-		     HELPCTX(proxy_auth),
-		     dlg_stdeditbox_handler,
-		     I(offsetof(Config,proxy_username)),
-		     I(sizeof(((Config *)0)->proxy_username)));
-	c = ctrl_editbox(s, "Password", 'w', 60,
-			 HELPCTX(proxy_auth),
-			 dlg_stdeditbox_handler,
-			 I(offsetof(Config,proxy_password)),
-			 I(sizeof(((Config *)0)->proxy_password)));
-	c->editbox.password = 1;
-	ctrl_editbox(s, "Telnet command", 'm', 100,
-		     HELPCTX(proxy_command),
-		     dlg_stdeditbox_handler,
-		     I(offsetof(Config,proxy_telnet_command)),
-		     I(sizeof(((Config *)0)->proxy_telnet_command)));
-    }
-
-    if (!midsession) {
-
-	/*
-	 * The Connection/Rlogin panel.
-	 */
-	ctrl_settitle(b, "Connection/Rlogin",
-		      "Options controlling Rlogin connections");
-
-	s = ctrl_getset(b, "Connection/Rlogin", "data",
-			"Data to send to the server");
-	ctrl_editbox(s, "Local username:", 'l', 50,
-		     HELPCTX(rlogin_localuser),
-		     dlg_stdeditbox_handler, I(offsetof(Config,localusername)),
-		     I(sizeof(((Config *)0)->localusername)));
 
     }
 }

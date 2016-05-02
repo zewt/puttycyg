@@ -425,16 +425,6 @@ struct config_tag {
     int ping_interval;		       /* in seconds */
     int tcp_nodelay;
     int tcp_keepalives;
-    /* Proxy options */
-    char proxy_exclude_list[512];
-    int proxy_dns;
-    int even_proxy_localhost;
-    int proxy_type;
-    char proxy_host[512];
-    int proxy_port;
-    char proxy_username[128];
-    char proxy_password[128];
-    char proxy_telnet_command[512];
     /* SSH options */
     char remote_cmd[512];
     char *remote_cmd_ptr;	       /* might point to a larger command
@@ -463,11 +453,9 @@ struct config_tag {
     int ssh_nc_port;		       /* port to connect to in `nc' mode */
     /* Telnet options */
     char termtype[32];
-    char termspeed[32];
     char ttymodes[768];		       /* MODE\tVvalue\0MODE\tA\0\0 */
     char environmt[1024];	       /* VAR\tvalue\0VAR\tvalue\0\0 */
     char username[100];
-    char localusername[100];
     int rfc_environ;
     int passive_telnet;
     /* Serial port options */
