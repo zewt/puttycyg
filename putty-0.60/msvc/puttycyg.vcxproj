@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\be_nos_s.c" />
+    <ClCompile Include="..\cmdline.c" />
+    <ClCompile Include="..\config.c" />
+    <ClCompile Include="..\cproxy.c" />
+    <ClCompile Include="..\dialog.c" />
+    <ClCompile Include="..\import.c" />
+    <ClCompile Include="..\int64.c" />
+    <ClCompile Include="..\ldisc.c" />
+    <ClCompile Include="..\ldiscucs.c" />
+    <ClCompile Include="..\logging.c" />
+    <ClCompile Include="..\minibidi.c" />
+    <ClCompile Include="..\misc.c" />
+    <ClCompile Include="..\pinger.c" />
+    <ClCompile Include="..\portfwd.c" />
+    <ClCompile Include="..\proxy.c" />
+    <ClCompile Include="..\raw.c" />
+    <ClCompile Include="..\rlogin.c" />
+    <ClCompile Include="..\sercfg.c" />
+    <ClCompile Include="..\settings.c" />
+    <ClCompile Include="..\ssh.c" />
+    <ClCompile Include="..\sshaes.c" />
+    <ClCompile Include="..\ssharcf.c" />
+    <ClCompile Include="..\sshblowf.c" />
+    <ClCompile Include="..\sshbn.c" />
+    <ClCompile Include="..\sshcrc.c" />
+    <ClCompile Include="..\sshcrcda.c" />
+    <ClCompile Include="..\sshdes.c" />
+    <ClCompile Include="..\sshdh.c" />
+    <ClCompile Include="..\sshdss.c" />
+    <ClCompile Include="..\sshdssg.c" />
+    <ClCompile Include="..\sshmd5.c" />
+    <ClCompile Include="..\sshprime.c" />
+    <ClCompile Include="..\sshpubk.c" />
+    <ClCompile Include="..\sshrand.c" />
+    <ClCompile Include="..\sshrsa.c" />
+    <ClCompile Include="..\sshrsag.c" />
+    <ClCompile Include="..\sshsh256.c" />
+    <ClCompile Include="..\sshsh512.c" />
+    <ClCompile Include="..\sshsha.c" />
+    <ClCompile Include="..\sshzlib.c" />
+    <ClCompile Include="..\telnet.c" />
+    <ClCompile Include="..\terminal.c" />
+    <ClCompile Include="..\testback.c" />
+    <ClCompile Include="..\timing.c" />
+    <ClCompile Include="..\tree234.c" />
+    <ClCompile Include="..\version.c" />
+    <ClCompile Include="..\wcwidth.c" />
+    <ClCompile Include="..\wildcard.c" />
+    <ClCompile Include="..\windows\cygcfg.c" />
+    <ClCompile Include="..\windows\cygterm.c" />
+    <ClCompile Include="..\windows\sizetip.c" />
+    <ClCompile Include="..\windows\wincfg.c" />
+    <ClCompile Include="..\windows\winctrls.c" />
+    <ClCompile Include="..\windows\windefs.c" />
+    <ClCompile Include="..\windows\windlg.c" />
+    <ClCompile Include="..\windows\window.c" />
+    <ClCompile Include="..\windows\winhandl.c" />
+    <ClCompile Include="..\windows\winhelp.c" />
+    <ClCompile Include="..\windows\winmisc.c" />
+    <ClCompile Include="..\windows\winnet.c" />
+    <ClCompile Include="..\windows\winnoise.c" />
+    <ClCompile Include="..\windows\winpgntc.c" />
+    <ClCompile Include="..\windows\winprint.c" />
+    <ClCompile Include="..\windows\winproxy.c" />
+    <ClCompile Include="..\windows\winser.c" />
+    <ClCompile Include="..\windows\winstore.c" />
+    <ClCompile Include="..\windows\wintime.c" />
+    <ClCompile Include="..\windows\winucs.c" />
+    <ClCompile Include="..\windows\winutils.c" />
+    <ClCompile Include="..\x11fwd.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\dialog.h" />
+    <ClInclude Include="..\int64.h" />
+    <ClInclude Include="..\ldisc.h" />
+    <ClInclude Include="..\misc.h" />
+    <ClInclude Include="..\network.h" />
+    <ClInclude Include="..\proxy.h" />
+    <ClInclude Include="..\putty.h" />
+    <ClInclude Include="..\puttymem.h" />
+    <ClInclude Include="..\puttyps.h" />
+    <ClInclude Include="..\resource.h" />
+    <ClInclude Include="..\ssh.h" />
+    <ClInclude Include="..\storage.h" />
+    <ClInclude Include="..\terminal.h" />
+    <ClInclude Include="..\tree234.h" />
+    <ClInclude Include="..\windows\rcstuff.h" />
+    <ClInclude Include="..\windows\winhelp.h" />
+    <ClInclude Include="..\windows\winstuff.h" />
+    <ClInclude Include="..\windows\win_res.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\sign.sh" />
+    <None Include="..\version.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\windows\putty.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{235B4EB4-8F19-4AE5-BA25-BF46919D419C}</ProjectGuid>
+    <RootNamespace>puttycyg</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..;..\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Imm32.lib;Comctl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..;..\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Imm32.lib;Comctl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..;..\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Imm32.lib;Comctl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..;..\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Imm32.lib;Comctl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
