@@ -22,6 +22,7 @@ struct backend_list backends[] = {
 /*
  * Stub implementations of functions not used in non-ssh versions.
  */
+/*
 void random_save_seed(void)
 {
 }
@@ -33,3 +34,4 @@ void random_destroy_seed(void)
 void noise_ultralight(unsigned long data)
 {
 }
+*/
