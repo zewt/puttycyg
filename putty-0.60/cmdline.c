@@ -170,14 +170,6 @@ int cmdline_process_param(char *p, char *value, int need_save, Config *cfg)
 	default_port = cfg->port = 22;
 	return 1;
     }
-    if (!strcmp(p, "-telnet")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	default_protocol = cfg->protocol = PROT_TELNET;
-	default_port = cfg->port = 23;
-	return 1;
-    }
     if (!strcmp(p, "-rlogin")) {
 	RETURN(1);
 	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);

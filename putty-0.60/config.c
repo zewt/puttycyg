@@ -40,14 +40,7 @@ static void config_host_handler(union control *ctrl, void *dlg,
      * different places depending on the protocol.
      */
     if (event == EVENT_REFRESH) {
-	if (cfg->protocol == PROT_SERIAL) {
-	    /*
-	     * This label text is carefully chosen to contain an n,
-	     * since that's the shortcut for the host name control.
-	     */
-	    dlg_label_change(ctrl, dlg, "Serial line");
-	    dlg_editbox_set(ctrl, dlg, cfg->serline);
-	} else if (cfg->protocol == PROT_CYGTERM) {
+	if (cfg->protocol == PROT_CYGTERM) {
 	    dlg_label_change(ctrl, dlg, "Command (use - for login shell)");
 	    dlg_editbox_set(ctrl, dlg, cfg->cygcmd);
 	} else {
@@ -55,9 +48,7 @@ static void config_host_handler(union control *ctrl, void *dlg,
 	    dlg_editbox_set(ctrl, dlg, cfg->host);
 	}
     } else if (event == EVENT_VALCHANGE) {
-	if (cfg->protocol == PROT_SERIAL)
-	    dlg_editbox_get(ctrl, dlg, cfg->serline, lenof(cfg->serline));
-	else if (cfg->protocol == PROT_CYGTERM)
+	if (cfg->protocol == PROT_CYGTERM)
 	    dlg_editbox_get(ctrl, dlg, cfg->cygcmd, lenof(cfg->cygcmd));
 	else
 	    dlg_editbox_get(ctrl, dlg, cfg->host, lenof(cfg->host));
@@ -76,14 +67,7 @@ static void config_port_handler(union control *ctrl, void *dlg,
      * different places depending on the protocol.
      */
     if (event == EVENT_REFRESH) {
-	if (cfg->protocol == PROT_SERIAL) {
-	    /*
-	     * This label text is carefully chosen to contain a p,
-	     * since that's the shortcut for the port control.
-	     */
-	    dlg_label_change(ctrl, dlg, "Speed");
-	    sprintf(buf, "%d", cfg->serspeed);
-	} else if (cfg->protocol == PROT_CYGTERM) {
+	if (cfg->protocol == PROT_CYGTERM) {
 	    dlg_label_change(ctrl, dlg, "Port (ignored)");
 	    strcpy(buf, "-");
 	} else {
@@ -93,9 +77,7 @@ static void config_port_handler(union control *ctrl, void *dlg,
 	dlg_editbox_set(ctrl, dlg, buf);
     } else if (event == EVENT_VALCHANGE) {
 	dlg_editbox_get(ctrl, dlg, buf, lenof(buf));
-	if (cfg->protocol == PROT_SERIAL)
-	    cfg->serspeed = atoi(buf);
-	else if (cfg->protocol == PROT_CYGTERM)
+	if (cfg->protocol == PROT_CYGTERM)
 	    ;
 	else
 	    cfg->port = atoi(buf);
@@ -141,7 +123,6 @@ void config_protocolbuttons_handler(union control *ctrl, void *dlg,
 	    defport = -1;
 	    switch (cfg->protocol) {
 	      case PROT_SSH: defport = 22; break;
-	      case PROT_TELNET: defport = 23; break;
 	      case PROT_RLOGIN: defport = 513; break;
 	    }
 	    if (defport > 0 && cfg->port != defport) {
@@ -1175,24 +1156,12 @@ void setup_config_box(struct controlbox *b, int midsession,
 	hp->port = c;
 	ctrl_columns(s, 1, 100);
 
-	if (!have_backend(PROT_SSH)) {
-	    ctrl_radiobuttons(s, "Connection type:", NO_SHORTCUT, 3,
-			      HELPCTX(session_hostname),
-			      config_protocolbuttons_handler, P(hp),
-			      "Raw", 'r', I(PROT_RAW),
-			      "Telnet", 't', I(PROT_TELNET),
-			      "Rlogin", 'i', I(PROT_RLOGIN),
-			      NULL);
-	} else {
-	    ctrl_radiobuttons(s, "Connection type:", NO_SHORTCUT, 4,
-			      HELPCTX(session_hostname),
-			      config_protocolbuttons_handler, P(hp),
-			      "Raw", 'r', I(PROT_RAW),
-			      "Telnet", 't', I(PROT_TELNET),
-			      "Rlogin", 'i', I(PROT_RLOGIN),
-			      "SSH", 's', I(PROT_SSH),
-			      NULL);
-	}
+	ctrl_radiobuttons(s, "Connection type:", NO_SHORTCUT, 3,
+			HELPCTX(session_hostname),
+			config_protocolbuttons_handler, P(hp),
+			"Raw", 'r', I(PROT_RAW),
+			"Rlogin", 'i', I(PROT_RLOGIN),
+			NULL);
     }
 
     /*
@@ -1859,44 +1828,6 @@ void setup_config_box(struct controlbox *b, int midsession,
 		     dlg_stdeditbox_handler,
 		     I(offsetof(Config,proxy_telnet_command)),
 		     I(sizeof(((Config *)0)->proxy_telnet_command)));
-    }
-
-    /*
-     * The Telnet panel exists in the base config box, and in a
-     * mid-session reconfig box _if_ we're using Telnet.
-     */
-    if (!midsession || protocol == PROT_TELNET) {
-	/*
-	 * The Connection/Telnet panel.
-	 */
-	ctrl_settitle(b, "Connection/Telnet",
-		      "Options controlling Telnet connections");
-
-	s = ctrl_getset(b, "Connection/Telnet", "protocol",
-			"Telnet protocol adjustments");
-
-	if (!midsession) {
-	    ctrl_radiobuttons(s, "Handling of OLD_ENVIRON ambiguity:",
-			      NO_SHORTCUT, 2,
-			      HELPCTX(telnet_oldenviron),
-			      dlg_stdradiobutton_handler,
-			      I(offsetof(Config, rfc_environ)),
-			      "BSD (commonplace)", 'b', I(0),
-			      "RFC 1408 (unusual)", 'f', I(1), NULL);
-	    ctrl_radiobuttons(s, "Telnet negotiation mode:", 't', 2,
-			      HELPCTX(telnet_passive),
-			      dlg_stdradiobutton_handler,
-			      I(offsetof(Config, passive_telnet)),
-			      "Passive", I(1), "Active", I(0), NULL);
-	}
-	ctrl_checkbox(s, "Keyboard sends Telnet special commands", 'k',
-		      HELPCTX(telnet_specialkeys),
-		      dlg_stdcheckbox_handler,
-		      I(offsetof(Config,telnet_keyboard)));
-	ctrl_checkbox(s, "Return key sends Telnet New Line instead of ^M",
-		      'm', HELPCTX(telnet_newline),
-		      dlg_stdcheckbox_handler,
-		      I(offsetof(Config,telnet_newline)));
     }
 
     if (!midsession) {

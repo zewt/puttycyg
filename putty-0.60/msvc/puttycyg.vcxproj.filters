@@ -14,9 +14,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\telnet.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\terminal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -77,9 +74,6 @@
     <ClCompile Include="..\rlogin.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sercfg.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\settings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,9 +81,6 @@
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winproxy.c">
-      <Filter>Source Files\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\windows\winser.c">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winstore.c">
@@ -138,9 +129,6 @@
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winnet.c">
-      <Filter>Source Files\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\windows\winpgntc.c">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\be_nos_s.c">

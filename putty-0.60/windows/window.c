@@ -470,31 +470,6 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmdline, int show)
 			 */
 			int ret = cmdline_process_param("-P", p, 1, &cfg);
 			assert(ret == 2);
-		    } else if (!strncmp(q, "telnet:", 7)) {
-			/*
-			 * If the hostname starts with "telnet:",
-			 * set the protocol to Telnet and process
-			 * the string as a Telnet URL.
-			 */
-			char c;
-
-			q += 7;
-			if (q[0] == '/' && q[1] == '/')
-			    q += 2;
-			cfg.protocol = PROT_TELNET;
-			p = q;
-			while (*p && *p != ':' && *p != '/')
-			    p++;
-			c = *p;
-			if (*p)
-			    *p++ = '\0';
-			if (c == ':')
-			    cfg.port = atoi(p);
-			else
-			    cfg.port = -1;
-			strncpy(cfg.host, q, sizeof(cfg.host) - 1);
-			cfg.host[sizeof(cfg.host) - 1] = '\0';
-			got_host = 1;
         } else if (cfg.protocol == PROT_CYGTERM) {
             /* Concatenate all the remaining arguments separating
              * them with spaces to get the command line to execute.
@@ -5389,15 +5364,4 @@ int get_userpass_input(prompts_t *p, unsigned char *in, int inlen)
     if (ret == -1)
 	ret = term_get_userpass_input(term, p, in, inlen);
     return ret;
-}
-
-void agent_schedule_callback(void (*callback)(void *, void *, int),
-			     void *callback_ctx, void *data, int len)
-{
-    struct agent_callback *c = snew(struct agent_callback);
-    c->callback = callback;
-    c->callback_ctx = callback_ctx;
-    c->data = data;
-    c->len = len;
-    PostMessage(hwnd, WM_AGENT_CALLBACK, 0, (LPARAM)c);
 }

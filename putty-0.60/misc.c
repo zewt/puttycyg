@@ -640,9 +640,7 @@ void debug_memdump(void *buf, int len, int L)
  */
 int cfg_launchable(const Config *cfg)
 {
-    if (cfg->protocol == PROT_SERIAL)
-	return cfg->serline[0] != 0;
-    else if (cfg->protocol == PROT_CYGTERM)
+    if (cfg->protocol == PROT_CYGTERM)
     	return cfg->cygcmd[0] != 0;
     else
 	return cfg->host[0] != 0;
@@ -650,9 +648,7 @@ int cfg_launchable(const Config *cfg)
 
 char const *cfg_dest(const Config *cfg)
 {
-    if (cfg->protocol == PROT_SERIAL)
-	return cfg->serline;
-    else if (cfg->protocol == PROT_CYGTERM)
+    if (cfg->protocol == PROT_CYGTERM)
 	return cfg->cygcmd;
     else
 	return cfg->host;

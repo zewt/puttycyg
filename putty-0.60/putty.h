@@ -304,11 +304,8 @@ enum {
 
 enum {
     /* Protocol back ends. (cfg.protocol) */
-    PROT_RAW, PROT_TELNET, PROT_RLOGIN, PROT_SSH,
-    PROT_CYGTERM,
-    /* PROT_SERIAL is supported on a subset of platforms, but it doesn't
-     * hurt to define it globally. */
-    PROT_SERIAL
+    PROT_RAW, PROT_RLOGIN, PROT_SSH,
+    PROT_CYGTERM
 };
 
 enum {
