@@ -897,12 +897,6 @@ void cleanup_exit(int code)
 	DeleteObject(pal);
     sk_cleanup();
 
-    if (cfg.protocol == PROT_SSH) {
-	random_save_seed();
-#ifdef MSCRYPTOAPI
-	crypto_wrapup();
-#endif
-    }
     shutdown_help();
 
     exit(code);
@@ -2470,11 +2464,6 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message,
 		last_mousemove = WM_MOUSEMOVE;
 	    }
 	}
-	/*
-	 * Add the mouse position and message time to the random
-	 * number noise.
-	 */
-	noise_ultralight(lParam);
 
 	if (wParam & (MK_LBUTTON | MK_MBUTTON | MK_RBUTTON) &&
 	    GetCapture() == hwnd) {
@@ -2502,7 +2491,6 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message,
 		last_mousemove = WM_NCMOUSEMOVE;
 	    }
 	}
-	noise_ultralight(lParam);
 	break;
       case WM_IGNORE_CLIP:
 	ignore_clip = wParam;	       /* don't panic on DESTROYCLIPBOARD */
@@ -2892,12 +2880,6 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message,
       case WM_SYSKEYDOWN:
       case WM_KEYUP:
       case WM_SYSKEYUP:
-	/*
-	 * Add the scan code and keypress timing to the random
-	 * number noise.
-	 */
-	noise_ultralight(lParam);
-
 	/*
 	 * We don't do TranslateMessage since it disassociates the
 	 * resulting CHAR message from the KEYDOWN that sparked it,

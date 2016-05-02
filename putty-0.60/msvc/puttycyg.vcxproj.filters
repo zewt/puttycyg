@@ -14,21 +14,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\sshrsag.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshsh256.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshsh512.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshsha.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshzlib.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\telnet.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,13 +44,7 @@
     <ClCompile Include="..\config.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cproxy.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\dialog.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\import.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\int64.c">
@@ -89,9 +68,6 @@
     <ClCompile Include="..\pinger.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\portfwd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\proxy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -105,51 +81,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\settings.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ssh.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshaes.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ssharcf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshblowf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshbn.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshcrc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshcrcda.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshdes.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshdh.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshdss.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshdssg.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshmd5.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshprime.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshpubk.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sshrsa.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winprint.c">
@@ -212,17 +143,11 @@
     <ClCompile Include="..\windows\winpgntc.c">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\x11fwd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\be_nos_s.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sshrand.c">
+    <ClCompile Include="..\nocproxy.c">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\windows\winnoise.c">
-      <Filter>Source Files\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +188,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\resource.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ssh.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\windows\rcstuff.h">
