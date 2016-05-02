@@ -162,28 +162,6 @@ int cmdline_process_param(char *p, char *value, int need_save, Config *cfg)
 	loaded_session = TRUE;
 	return 2;
     }
-    if (!strcmp(p, "-ssh")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	default_protocol = cfg->protocol = PROT_SSH;
-	default_port = cfg->port = 22;
-	return 1;
-    }
-    if (!strcmp(p, "-rlogin")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	default_protocol = cfg->protocol = PROT_RLOGIN;
-	default_port = cfg->port = 513;
-	return 1;
-    }
-    if (!strcmp(p, "-raw")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	default_protocol = cfg->protocol = PROT_RAW;
-    }
     if (!strcmp(p, "-cygterm")) {
 	RETURN(1);
 	UNAVAILABLE_IN(TOOLTYPE_FILETRANSFER | TOOLTYPE_NONNETWORK);
@@ -309,38 +287,6 @@ int cmdline_process_param(char *p, char *value, int need_save, Config *cfg)
 	UNAVAILABLE_IN(TOOLTYPE_NONNETWORK);
 	SAVEABLE(1);		       /* lower priority than -ssh,-telnet */
 	cfg->port = atoi(value);
-    }
-    if (!strcmp(p, "-pw")) {
-	RETURN(2);
-	UNAVAILABLE_IN(TOOLTYPE_NONNETWORK);
-	SAVEABLE(1);
-	/* We delay evaluating this until after the protocol is decided,
-	 * so that we can warn if it's of no use with the selected protocol */
-	if (cfg->protocol != PROT_SSH)
-	    cmdline_error("the -pw option can only be used with the "
-			  "SSH protocol");
-	else {
-	    cmdline_password = dupstr(value);
-	    /* Assuming that `value' is directly from argv, make a good faith
-	     * attempt to trample it, to stop it showing up in `ps' output
-	     * on Unix-like systems. Not guaranteed, of course. */
-	    memset(value, 0, strlen(value));
-	}
-    }
-
-    if (!strcmp(p, "-agent") || !strcmp(p, "-pagent") ||
-	!strcmp(p, "-pageant")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	cfg->tryagent = TRUE;
-    }
-    if (!strcmp(p, "-noagent") || !strcmp(p, "-nopagent") ||
-	!strcmp(p, "-nopageant")) {
-	RETURN(1);
-	UNAVAILABLE_IN(TOOLTYPE_NONNETWORK);
-	SAVEABLE(0);
-	cfg->tryagent = FALSE;
     }
 
     if (!strcmp(p, "-A")) {

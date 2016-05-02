@@ -255,8 +255,7 @@ void ldisc_send(void *handle, char *buf, int len, int interactive)
 		 *    default clause because of the break.
 		 */
 	      case CTRL('J'):
-		if (ldisc->cfg->protocol == PROT_RAW &&
-		    ldisc->buflen > 0 && ldisc->buf[ldisc->buflen - 1] == '\r') {
+		{
 		    if (ECHOING)
 			bsb(ldisc, plen(ldisc, ldisc->buf[ldisc->buflen - 1]));
 		    ldisc->buflen--;
@@ -264,8 +263,6 @@ void ldisc_send(void *handle, char *buf, int len, int interactive)
 	      case KCTRL('M'):	       /* send with newline */
 		    if (ldisc->buflen > 0)
 			ldisc->back->send(ldisc->backhandle, ldisc->buf, ldisc->buflen);
-		    if (ldisc->cfg->protocol == PROT_RAW)
-			ldisc->back->send(ldisc->backhandle, "\r\n", 2);
 		    else
 			ldisc->back->send(ldisc->backhandle, "\r", 1);
 		    if (ECHOING)

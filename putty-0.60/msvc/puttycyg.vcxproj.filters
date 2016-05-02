@@ -65,22 +65,10 @@
     <ClCompile Include="..\pinger.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\proxy.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\raw.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\rlogin.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\settings.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winprint.c">
-      <Filter>Source Files\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\windows\winproxy.c">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\windows\winstore.c">
@@ -132,9 +120,6 @@
       <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="..\be_nos_s.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\nocproxy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

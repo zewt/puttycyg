@@ -29,11 +29,7 @@
     <ClCompile Include="..\logging.c" />
     <ClCompile Include="..\minibidi.c" />
     <ClCompile Include="..\misc.c" />
-    <ClCompile Include="..\nocproxy.c" />
     <ClCompile Include="..\pinger.c" />
-    <ClCompile Include="..\proxy.c" />
-    <ClCompile Include="..\raw.c" />
-    <ClCompile Include="..\rlogin.c" />
     <ClCompile Include="..\settings.c" />
     <ClCompile Include="..\terminal.c" />
     <ClCompile Include="..\testback.c" />
@@ -55,7 +51,6 @@
     <ClCompile Include="..\windows\winmisc.c" />
     <ClCompile Include="..\windows\winnet.c" />
     <ClCompile Include="..\windows\winprint.c" />
-    <ClCompile Include="..\windows\winproxy.c" />
     <ClCompile Include="..\windows\winstore.c" />
     <ClCompile Include="..\windows\wintime.c" />
     <ClCompile Include="..\windows\winucs.c" />

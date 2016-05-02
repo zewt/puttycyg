@@ -304,7 +304,6 @@ enum {
 
 enum {
     /* Protocol back ends. (cfg.protocol) */
-    PROT_RAW, PROT_RLOGIN, PROT_SSH,
     PROT_CYGTERM
 };
 
