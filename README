@@ -1,0 +1,10 @@
+Puttycyg, a Putty-based terminal for Cygwin.
+
+puttycyg was discontinued by its author years ago because there are "plenty
+of alternatives".  I don't like any of them and I just want puttycyg back, so I've
+updated it to build with current MSVC and Cygwin and rebuilt it.
+
+SSH and other remote terminal features have been stripped out.  Don't use
+an ancient fork of Putty that hasn't had security fixes in years for remote
+terminals.  Use Putty for that.
+
