@@ -1,0 +1,7 @@
+*.o
+*.aps
+*.exe
+msvc/Debug
+msvc/Release
+msvc/.vs
+*.user
