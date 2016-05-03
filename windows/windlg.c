@@ -10,7 +10,6 @@
 #include <time.h>
 
 #include "putty.h"
-#include "ssh.h"
 #include "win_res.h"
 #include "storage.h"
 #include "dialog.h"
