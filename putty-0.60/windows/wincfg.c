@@ -340,6 +340,15 @@ void win_setup_config_box(struct controlbox *b, HWND *hwndp, int has_help,
     /*
      * cygterm back end is available on Windows.
      */
-    if (!midsession || (protocol == PROT_CYGTERM))
-        cygterm_setup_config_box(b, midsession);
+    if (!midsession)
+    {
+	union control *c;
+	int i;
+	struct controlset *s;
+	s = ctrl_getset(b, "Session", "hostport",
+		"Specify the destination you want to connect to");
+	for (i = 0; i < s->ncontrols; i++) {
+		c = s->ctrls[i];
+	}
+    }
 }

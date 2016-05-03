@@ -12,9 +12,6 @@
 
 #define PRINTER_DISABLED_STRING "None (printing disabled)"
 
-#define HOST_BOX_TITLE "Host Name (or IP address)"
-#define PORT_BOX_TITLE "Port"
-
 /*
  * Convenience function: determine whether this binary supports a
  * given backend.
@@ -40,7 +37,6 @@ static void config_host_handler(union control *ctrl, void *dlg,
      * different places depending on the protocol.
      */
     if (event == EVENT_REFRESH) {
-	dlg_label_change(ctrl, dlg, "Command (use - for login shell)");
 	dlg_editbox_set(ctrl, dlg, cfg->cygcmd);
     } else if (event == EVENT_VALCHANGE) {
 	if (cfg->protocol == PROT_CYGTERM)
@@ -864,18 +860,14 @@ void setup_config_box(struct controlbox *b, int midsession,
     /*
      * The Session panel.
      */
-    str = dupprintf("Basic options for your %s session", appname);
-    ctrl_settitle(b, "Session", str);
-    sfree(str);
-
     if (!midsession) {
 	struct hostport *hp = (struct hostport *)
 	    ctrl_alloc(b, sizeof(struct hostport));
 
 	s = ctrl_getset(b, "Session", "hostport",
-			"Specify the destination you want to connect to");
+			"");
 	ctrl_columns(s, 2, 100, 25);
-	c = ctrl_editbox(s, HOST_BOX_TITLE, 'n', 100,
+	c = ctrl_editbox(s, "Command (use - for login shell)", 'n', 100,
 			 HELPCTX(session_hostname),
 			 config_host_handler, I(0), I(0));
 	c->generic.column = 0;
@@ -1367,60 +1359,19 @@ void setup_config_box(struct controlbox *b, int midsession,
     if (protocol >= 0) {
 	ctrl_settitle(b, "Connection", "Options controlling the connection");
 
-	s = ctrl_getset(b, "Connection", "keepalive",
-			"Sending of null packets to keep session active");
-	ctrl_editbox(s, "Seconds between keepalives (0 to turn off)", 'k', 20,
-		     HELPCTX(connection_keepalive),
-		     dlg_stdeditbox_handler, I(offsetof(Config,ping_interval)),
-		     I(-1));
-
-	if (!midsession) {
-	    s = ctrl_getset(b, "Connection", "tcp",
-			    "Low-level TCP connection options");
-	    ctrl_checkbox(s, "Disable Nagle's algorithm (TCP_NODELAY option)",
-			  'n', HELPCTX(connection_nodelay),
-			  dlg_stdcheckbox_handler,
-			  I(offsetof(Config,tcp_nodelay)));
-	    ctrl_checkbox(s, "Enable TCP keepalives (SO_KEEPALIVE option)",
-			  'p', HELPCTX(connection_tcpkeepalive),
-			  dlg_stdcheckbox_handler,
-			  I(offsetof(Config,tcp_keepalives)));
-#ifndef NO_IPV6
-	    s = ctrl_getset(b, "Connection", "ipversion",
-			  "Internet protocol version");
-	    ctrl_radiobuttons(s, NULL, NO_SHORTCUT, 3,
-			  HELPCTX(connection_ipversion),
-			  dlg_stdradiobutton_handler,
-			  I(offsetof(Config, addressfamily)),
-			  "Auto", 'u', I(ADDRTYPE_UNSPEC),
-			  "IPv4", '4', I(ADDRTYPE_IPV4),
-			  "IPv6", '6', I(ADDRTYPE_IPV6),
-			  NULL);
-#endif
-	}
-
 	/*
 	 * A sub-panel Connection/Data, containing options that
 	 * decide on data to send to the server.
 	 */
 	if (!midsession) {
-	    ctrl_settitle(b, "Connection/Data", "Data to send to the server");
-
-	    s = ctrl_getset(b, "Connection/Data", "login",
-			    "Login details");
-	    ctrl_editbox(s, "Auto-login username", 'u', 50,
-			 HELPCTX(connection_username),
-			 dlg_stdeditbox_handler, I(offsetof(Config,username)),
-			 I(sizeof(((Config *)0)->username)));
-
-	    s = ctrl_getset(b, "Connection/Data", "term",
+	    s = ctrl_getset(b, "Connection", "term",
 			    "Terminal details");
 	    ctrl_editbox(s, "Terminal-type string", 't', 50,
 			 HELPCTX(connection_termtype),
 			 dlg_stdeditbox_handler, I(offsetof(Config,termtype)),
 			 I(sizeof(((Config *)0)->termtype)));
 
-	    s = ctrl_getset(b, "Connection/Data", "env",
+	    s = ctrl_getset(b, "Connection", "env",
 			    "Environment variables");
 	    ctrl_columns(s, 2, 80, 20);
 	    ed = (struct environ_data *)
@@ -1450,6 +1401,12 @@ void setup_config_box(struct controlbox *b, int midsession,
 	    ed->listbox->listbox.percentages = snewn(2, int);
 	    ed->listbox->listbox.percentages[0] = 30;
 	    ed->listbox->listbox.percentages[1] = 70;
+
+	    s = ctrl_getset(b, "Connection", "cygterm", "Configure Cygwin paths");
+	    ctrl_checkbox(s, "Autodetect Cygwin installation", 0,
+		    HELPCTX(no_help),
+		    dlg_stdcheckbox_handler,
+		    I(offsetof(Config,cygautopath)));
 	}
 
     }

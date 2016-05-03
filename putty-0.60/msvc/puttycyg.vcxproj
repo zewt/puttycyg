@@ -29,16 +29,13 @@
     <ClCompile Include="..\logging.c" />
     <ClCompile Include="..\minibidi.c" />
     <ClCompile Include="..\misc.c" />
-    <ClCompile Include="..\pinger.c" />
     <ClCompile Include="..\settings.c" />
     <ClCompile Include="..\terminal.c" />
-    <ClCompile Include="..\testback.c" />
     <ClCompile Include="..\timing.c" />
     <ClCompile Include="..\tree234.c" />
     <ClCompile Include="..\version.c" />
     <ClCompile Include="..\wcwidth.c" />
     <ClCompile Include="..\wildcard.c" />
-    <ClCompile Include="..\windows\cygcfg.c" />
     <ClCompile Include="..\windows\cygterm.c" />
     <ClCompile Include="..\windows\sizetip.c" />
     <ClCompile Include="..\windows\wincfg.c" />

@@ -730,7 +730,7 @@ void load_open_settings(void *sesskey, Config *cfg)
     gppi(sesskey, "SerialParity", SER_PAR_NONE, &cfg->serparity);
     gppi(sesskey, "SerialFlowControl", SER_FLOW_XONXOFF, &cfg->serflow);
     gppi(sesskey, "CygtermAutoPath", 1, &cfg->cygautopath);
-    gpps(sesskey, "CygtermCommand", "", cfg->cygcmd, sizeof(cfg->cygcmd));
+    gpps(sesskey, "CygtermCommand", "-", cfg->cygcmd, sizeof(cfg->cygcmd));
 }
 
 void do_defaults(char *session, Config * cfg)
